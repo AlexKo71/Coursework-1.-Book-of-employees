@@ -1,15 +1,11 @@
 public class Employee {
-    private String firstName;
-    private String surName;
-    private String lastName;
+    private final String firstName;
+    private final String surName;
+    private final String lastName;
     private int department;
     private int salary;
-    static int countId = 0;
-
-    public Employee(int salary) {
-        this.salary = salary;
-        countId++;
-    }
+    private int id;
+    private static int countId = 1;
 
 
     public String getFirstName() {
@@ -32,6 +28,10 @@ public class Employee {
         return salary;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setDepartment(int department) {
         this.department = department;
     }
@@ -46,11 +46,17 @@ public class Employee {
         this.lastName = lastName;
         this.department = department;
         this.salary = salary;
+        setId();
+    }
+
+    public void setId() {
+        id = countId;
+        countId++;
     }
 
     @Override
     public String toString() {
-        return "Фамилия, Имя, Отчество: " + lastName + " " + firstName + " " + surName + "; " + department + " отдел; Зарплата: " +
+        return "№" + id + ": Фамилия, Имя, Отчество: " + lastName + " " + firstName + " " + surName + "; " + department + " отдел; Зарплата: " +
                 +salary + " рублей.";
     }
 
@@ -73,35 +79,53 @@ public class Employee {
         return averageSalary;
     }
 
-    public static int minimum(Employee[] employee) {
-        int minIndex = 0;
-        for (int i = 0; i < employee.length; i++) {
-            if (i != (employee.length - 1) && employee[minIndex].salary > employee[i + 1].salary) {
-                minIndex = i + 1;
-            } else {
-                if (employee[minIndex].salary > employee[i].salary) minIndex = i;
+    public static Employee minWage(Employee[] employee) {
+        int min = 0;
+        for (int i = 1; i < employee.length; i++) {
+            if (employee[min].salary > employee[i].salary) {
+                min = i;
             }
         }
-        return minIndex;
+        return employee[min];
     }
 
-    public static int maxWage(Employee[] employee) {
-        int maxIndex = 0;
-        for (int i = 0; i < employee.length; i++) {
-            if (i != (employee.length - 1) && employee[maxIndex].salary < employee[i + 1].salary) {
-                maxIndex = i + 1;
-            } else {
-                if (employee[maxIndex].salary < employee[i].salary) {
-                    maxIndex = i;
-                }
+    public static Employee maxWage(Employee[] employees) {
+        int max = 0;
+        for (int i = 1; i < employees.length; i++) {
+            if (employees[max].salary < employees[i].salary) {
+                max = i;
             }
         }
-        return maxIndex;
+        return employees[max];
     }
 
     public void salaryIndexation(int byPercent) {
         int increase = salary * byPercent / 100;
         salary += increase;
+    }
+
+    public static int arraySize(Employee[] employees, int number) {
+        int arraySize = 0;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].department == number) {
+                arraySize++;
+            }
+        }
+        return arraySize;
+    }
+
+    public static Employee[] departments(Employee[] employees, int arraySize, int number) {
+        Employee[] departments = new Employee[arraySize];
+        int k = 0;
+        while (k < departments.length) {
+            for (int s = 0; s < employees.length; s++) {
+                if (employees[s].department == number) {
+                    departments[k] = employees[s];
+                    k++;
+                }
+            }
+        }
+        return departments;
     }
 
 

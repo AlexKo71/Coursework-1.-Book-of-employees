@@ -56,7 +56,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "№" + id + ": Фамилия, Имя, Отчество: " + lastName + " " + firstName + " " + surName + "; " + department + " отдел; Зарплата: " +
+        return id + ": Фамилия, Имя, Отчество: " + lastName + " " + firstName + " " + surName + "; " + department + " отдел; Зарплата: " +
                 +salary + " рублей.";
     }
 
@@ -126,6 +126,62 @@ public class Employee {
             }
         }
         return departments;
+    }
+
+    public static void listDepartmentEmployees(Employee[] employee) {
+        for (Employee value : employee) {
+            System.out.println(value.id + ". " + value.lastName + " " + value.firstName + " " + value.surName + "; Зарплата: " +
+                    +value.salary + " рублей.");
+        }
+    }
+
+    public static int arraySizeLess(Employee[] employees, int threshold) {
+        int arraySize = 0;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].salary < threshold) {
+                arraySize++;
+            }
+        }
+        return arraySize;
+    }
+
+    public static int arraySizeMore(Employee[] employees, int threshold) {
+        int arraySize = 0;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].salary >= threshold) {
+                arraySize++;
+            }
+        }
+        return arraySize;
+    }
+
+
+    public static Employee[] lessPaidEmployees(Employee[] employees, int arraySize, int threshold) {
+        Employee[] lessPaidEmployees = new Employee[arraySize];
+        int k = 0;
+        while (k < lessPaidEmployees.length) {
+            for (int s = 0; s < employees.length; s++) {
+                if (employees[s].salary < threshold) {
+                    lessPaidEmployees[k] = employees[s];
+                    k++;
+                }
+            }
+        }
+        return lessPaidEmployees;
+    }
+
+    public static Employee[] morePaidEmployees(Employee[] employees, int arraySize, int threshold) {
+        Employee[] morePaidEmployees = new Employee[arraySize];
+        int k = 0;
+        while (k < morePaidEmployees.length) {
+            for (int s = 0; s < employees.length; s++) {
+                if (employees[s].salary >= threshold) {
+                    morePaidEmployees[k] = employees[s];
+                    k++;
+                }
+            }
+        }
+        return morePaidEmployees;
     }
 
 

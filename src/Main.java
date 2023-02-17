@@ -1,4 +1,4 @@
-import java.util.Arrays;
+
 
 public class Main {
 
@@ -40,21 +40,54 @@ public class Main {
 
 
         //Номер отдела
-        int numberDepartment = 1;
+        int numberDepartment = 3;
 
         int arraySize2 = Employee.arraySize(employees1, numberDepartment);
         Employee[] employees2 = Employee.departments(employees1, arraySize2, numberDepartment);
         System.out.println();
         System.out.println("Сотрудник " + numberDepartment + " отдела с минимальной зарплатой: " + Employee.minWage(employees2));
         System.out.println();
-        System.out.println("Сотрудник " + numberDepartment +  " отдела с максимальной зарплатой: " + Employee.maxWage(employees2));
+        System.out.println("Сотрудник " + numberDepartment + " отдела с максимальной зарплатой: " + Employee.maxWage(employees2));
+        System.out.println();
+        System.out.println("Сумма затрат на зарплаты " + numberDepartment + " отдела в месяц составляет: " + Employee.amountOfSalaries(employees2) + " рублей");
+        System.out.println();
+        System.out.println("Среднее значение зарплат сотрудников " + numberDepartment + " отдела составляет: " + Employee.averageSalary(employees2) + " рублей");
         System.out.println();
 
         //Печать сотрдников отдела
-        System.out.println(Arrays.toString(employees2));
+
+        System.out.println("Список сотрудников " + numberDepartment + " отдела");
+        Employee.listDepartmentEmployees(employees2);
+
+        //Индексация зарплаты на пять %
+        for (Employee e : employees2) {
+            e.salaryIndexation(5);
+        }
+        System.out.println();
+        System.out.println("Список сотрудников " + numberDepartment + " отдела после индексации зарплаты");
+        Employee.listDepartmentEmployees(employees2);
+
+        System.out.println();
+        int Threshold = 65000;
+        System.out.println("Список сотрудников, получающих зарплату меньше чем " + Threshold + " рублей.");
+        int arraySize3 = Employee.arraySizeLess(employees1, Threshold);
+        if (arraySize3 == 0) {
+            System.out.println("Таких сотрудников нет");
+        } else {
+            Employee[] employees3 = Employee.lessPaidEmployees(employees1, arraySize3, Threshold);
+            Employee.listOfAllEmployees(employees3);
+        }
+        System.out.println();
+        System.out.println("Список сотрудников, получающих зарплату больше чем " + Threshold + " рублей.");
+        int arraySize4 = Employee.arraySizeMore(employees1, Threshold);
+        if (arraySize4 == 0) {
+            System.out.println("Таких сотрудников нет");
+        } else {
+            Employee[] employees4 = Employee.morePaidEmployees(employees1, arraySize4, Threshold);
+            Employee.listOfAllEmployees(employees4);
+        }
+
     }
-
-
 }
 
 
